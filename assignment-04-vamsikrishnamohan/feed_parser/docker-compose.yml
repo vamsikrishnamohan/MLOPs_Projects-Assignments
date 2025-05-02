@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  db:
+    build: ./db
+    environment:
+      - POSTGRES_USER=rssuser
+      - POSTGRES_PASSWORD=rsspass
+      - POSTGRES_DB=rssdb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rssuser -d rssdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: ./app
+    environment:
+      - DB_HOST=db
+      - POSTGRES_USER=rssuser
+      - POSTGRES_PASSWORD=rsspass
+      - POSTGRES_DB=rssdb
+      - RSS_FEED_URL=https://www.thehindu.com/news/national/?service=rss
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  web:
+    build: ./web
+    environment:
+      - DB_HOST=db
+      - POSTGRES_USER=rssuser
+      - POSTGRES_PASSWORD=rsspass
+      - POSTGRES_DB=rssdb
+    ports:
+      - "5000:5000"
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

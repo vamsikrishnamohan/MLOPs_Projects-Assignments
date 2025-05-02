@@ -1,0 +1,14 @@
+project/
+├── app/
+│   ├── Dockerfile
+│   ├── app.py
+│   ├── requirements.txt
+│   └── templates/
+│       ├── base.html
+│       ├── index.html
+│       └── search_results.html
+├── db/
+│   ├── Dockerfile
+│   ├── init.sql
+│   └── db-init.sh
+└── docker-compose.yml

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSS News Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .filter-form {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f7f7f7;
+            border-radius: 5px;
+        }
+        .news-article {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .news-article h2 {
+            color: #3498db;
+            margin-top: 0;
+        }
+        .news-article h2 a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .news-article h2 a:hover {
+            text-decoration: underline;
+        }
+        .article-meta {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        .article-image {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+        .article-image img {
+            max-width: 100%;
+            max-height: 300px;
+            object-fit: contain;
+        }
+        .article-summary {
+            margin-bottom: 15px;
+        }
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .tag {
+            background-color: #e0f2f1;
+            color: #009688;
+            padding: 2px 8px;
+            font-size: 0.85em;
+            border-radius: 3px;
+        }
+        .error-message {
+            color: #e74c3c;
+            padding: 15px;
+            background-color: #fceaea;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .no-news {
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            text-align: center;
+            color: #6c757d;
+        }
+    </style>
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+    
+    <script>
+        function openArticle(url) {
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>

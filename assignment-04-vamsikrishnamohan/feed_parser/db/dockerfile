@@ -1,0 +1,16 @@
+FROM postgres:15
+
+# Environment variables will be supplied when running the container
+ENV POSTGRES_USER=${POSTGRES_USER:-admin}
+ENV POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-admin}
+ENV POSTGRES_DB=${POSTGRES_DB:-articles_db}
+
+# Copy initialization scripts
+COPY ./init-scripts/ /docker-entrypoint-initdb.d/
+
+# Make the shell script executable (this handles the permission inside the container)
+RUN chmod +x /docker-entrypoint-initdb.d/02-check-tables.sh
+
+# Add health check
+HEALTHCHECK --interval=5s --timeout=5s --retries=3 \
+  CMD pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB} || exit 1

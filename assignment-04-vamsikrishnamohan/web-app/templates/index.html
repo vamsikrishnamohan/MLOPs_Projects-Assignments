@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>RSS News Viewer</h1>
+    
+    <div class="filter-form">
+        <form method="get" action="/">
+            <label for="date">Select Date:</label>
+            <input type="date" id="date" name="date" value="{{ date }}" required>
+            <button type="submit">Filter</button>
+        </form>
+    </div>
+    
+    {% if error %}
+        <div class="error-message">
+            {{ error }}
+        </div>
+    {% endif %}
+    
+    {% if news|length > 0 %}
+        {% for article in news %}
+            <div class="news-article">
+                <h2><a href="{{ article.web_link }}" target="_blank">{{ article.title }}</a></h2>
+                <div class="article-meta">
+                    Published: {{ article.publication_timestamp.strftime('%Y-%m-%d %H:%M:%S') }}
+                </div>
+                
+                {% if article.image_filename %}
+                    <div class="article-image" onclick="openArticle('{{ article.web_link }}')">
+                        <img src="/images/{{ article.image_filename }}" alt="{{ article.title }}">
+                    </div>
+                {% endif %}
+                
+                {% if article.summary %}
+                    <div class="article-summary">
+                        {{ article.summary }}
+                    </div>
+                {% endif %}
+                
+                {% if article.tags %}
+                    <div class="article-tags">
+                        {% for tag in article.tags %}
+                            <span class="tag">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="no-news">
+            No news articles found for {{ date }}.
+        </div>
+    {% endif %}
+{% endblock %}

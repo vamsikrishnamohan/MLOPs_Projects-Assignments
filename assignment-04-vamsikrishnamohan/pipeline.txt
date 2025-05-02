@@ -1,0 +1,19 @@
+rss-feed-pipeline/
+├── docker-compose.yml
+├── .env
+├── database/
+│   ├── Dockerfile
+│   ├── init-scripts/
+│   │   └── init.sql
+│   └── healthcheck.sh
+├── rss-reader/
+│   ├── Dockerfile
+│   ├── requirements.txt
+│   └── app.py
+└── web-app/
+    ├── Dockerfile
+    ├── requirements.txt
+    ├── app.py
+    └── templates/
+        ├── index.html
+        └── base.html
