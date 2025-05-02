@@ -1,0 +1,17 @@
+news_scraper_airflow/
+│── dags/                      # Airflow DAGs (Workflow Definitions)
+│   ├── news_scraper_dag.py      # DAG 1: Scrapes & stores news in PostgreSQL
+│   ├── send_email_dag.py        # DAG 2: Sends email notifications
+│# Custom scripts (Scraper, Storage, Logging)
+│   ├── scraper.py              # Scrapes Google News
+│   ├── storage.py              # Stores news in PostgreSQL
+│   ├── deduplication.py        # Removes duplicate news entries
+│   ├── logger.py               # Handles logging
+│── config/                    # Configuration files
+│   ├── config.yaml             # Database & Scraper config
+│── airflow/                   # Airflow Configuration & Setup
+│   ├── docker-compose.yml      # Docker setup for Airflow & PostgreSQL
+│── logs/                      # Log files for debugging
+│── run/                       # Airflow status files
+│── requirements.txt           # Python dependencies
+│── pipeline.txt                # Full Airflow pipeline definition

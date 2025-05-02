@@ -1,0 +1,7 @@
+---
+database:
+  uri: "postgresql+psycopg2://airflow:airflow@postgres/airflow"
+  db_name: "news_scraper"
+
+google_news_url: "https://news.google.com"
+top_stories_id: i11
