@@ -1,0 +1,66 @@
+stages:
+  pull_data:
+    cmd: python src/data_loader.py
+    deps:
+    - src/data_loader.py
+    - params.yaml
+    params:
+    - data.version
+    - seed
+    outs:
+    - data/current:
+        persist: true
+
+  prepare:
+    cmd: python src/prepare.py
+    deps:
+    - src/prepare.py
+    - data/current
+    params:
+    - data.version
+    - seed
+    outs:
+    - data/processed
+
+  train:
+    cmd: python src/train.py
+    deps:
+    - src/train.py
+    - data/processed
+    params:
+    - model.lr
+    - model.conv_layers
+    - seed
+    outs:
+    - models/model.pth:
+        cache: true
+    metrics:
+    - metrics/val_accuracy.json:
+        cache: true
+
+
+  evaluate:
+    cmd: python src/evaluate.py --version ${data.version}
+    deps:
+    - src/evaluate.py
+    - models/model.pth
+    - data/processed/${data.version}/test
+    params:
+    - data.version
+    outs:
+    - reports/${data.version}_confusion_matrix.png:
+        cache: true
+    metrics:
+    - metrics/${data.version}_test_accuracy.json:
+        cache: true
+
+metrics:
+- dvclive_eval/metrics.json
+- dvclive/metrics.json
+plots:
+- dvclive_eval/plots/metrics:
+    x: step
+- dvclive/plots/metrics:
+    x: step
+params:
+- dvclive_eval/params.yaml

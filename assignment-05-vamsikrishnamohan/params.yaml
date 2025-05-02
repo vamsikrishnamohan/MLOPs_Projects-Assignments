@@ -1,0 +1,14 @@
+data:
+  version: v1
+  split:
+    train: 0.7
+    val: 0.15
+    test: 0.15
+
+model:
+  lr: [0.001, 0.01, 0.1]  # Learning rate choices
+  conv_layers: [2, 3, 4]  # Number of convolutional layers
+  conv_filters: [32, 64]  # Number of filters in each convolutional layer
+  kernel_size: [3, 5]     # Kernel size for convolutional layers
+
+seed: 42        # Random seed

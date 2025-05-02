@@ -1,0 +1,11 @@
+data:
+  split:
+    train: 0.7
+    val: 0.15
+    test: 0.15
+  version: v3
+model:
+  lr: 0.001
+  conv_layers: 3
+  conv_filters: 32
+seed: 123

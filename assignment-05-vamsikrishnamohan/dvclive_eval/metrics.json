@@ -1,0 +1,17 @@
+{
+    "v3_test_accuracy": 0.6387016229712859,
+    "v3_test_precision": 0.6418423495602711,
+    "v3_test_recall": 0.6386565056965848,
+    "v3_test_f1": 0.6353666260381494,
+    "v3_test_accuracy_airplane": 0.6513994910941476,
+    "v3_test_accuracy_automobile": 0.7307692307692307,
+    "v3_test_accuracy_bird": 0.5414507772020726,
+    "v3_test_accuracy_cat": 0.3950617283950617,
+    "v3_test_accuracy_deer": 0.48048780487804876,
+    "v3_test_accuracy_dog": 0.6240409207161125,
+    "v3_test_accuracy_frog": 0.7568922305764411,
+    "v3_test_accuracy_horse": 0.7125307125307125,
+    "v3_test_accuracy_ship": 0.7075,
+    "v3_test_accuracy_truck": 0.7864321608040201,
+    "step": 0
+}

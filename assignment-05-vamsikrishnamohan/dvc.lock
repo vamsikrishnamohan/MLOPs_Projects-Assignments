@@ -1,0 +1,99 @@
+schema: '2.0'
+stages:
+  pull_data:
+    cmd: python src/data_loader.py
+    deps:
+    - path: params.yaml
+      hash: md5
+      md5: aa1278ebbad0d5238e564a09311a3af4
+      size: 273
+    - path: src/data_loader.py
+      hash: md5
+      md5: 03ddb6282ec3b4276755146c434fbade
+      size: 3352
+    params:
+      params.yaml:
+        data.version: v1+v2+v3
+        seed: 42
+    outs:
+    - path: data/current
+      hash: md5
+      md5: b54fdf9fb940fedd3ec7224f6f75f8d8.dir
+      size: 135659890
+      nfiles: 60000
+  prepare:
+    cmd: python src/prepare.py
+    deps:
+    - path: data/current
+      hash: md5
+      md5: b54fdf9fb940fedd3ec7224f6f75f8d8.dir
+      size: 135659890
+      nfiles: 60000
+    - path: src/prepare.py
+      hash: md5
+      md5: bc7b2b4bc0dd2c2997754c46d3a4c481
+      size: 2692
+    params:
+      params.yaml:
+        data.version: v1+v2+v3
+        seed: 42
+    outs:
+    - path: data/processed
+      hash: md5
+      md5: 83d593dad0aaa7d0411b88a5a50a8f19.dir
+      size: 135659890
+      nfiles: 60000
+  train:
+    cmd: python src/train.py
+    deps:
+    - path: data/processed
+      hash: md5
+      md5: 83d593dad0aaa7d0411b88a5a50a8f19.dir
+      size: 135659890
+      nfiles: 60000
+    - path: src/train.py
+      hash: md5
+      md5: 1605aaf05ff02e7e661a76727c46179b
+      size: 5412
+    params:
+      params.yaml:
+        model.conv_layers: 3
+        model.lr: 0.001
+        seed: 42
+    outs:
+    - path: metrics/val_accuracy.json
+      hash: md5
+      md5: 347fc2e3a659fc36d9347011e77c81f7
+      size: 36
+    - path: models/model.pth
+      hash: md5
+      md5: c8ccc1f72169c4b3bc82195a5ab80a38
+      size: 100968
+  evaluate:
+    cmd: python src/evaluate.py --version v1+v2+v3
+    deps:
+    - path: data/processed/v1+v2+v3/test
+      hash: md5
+      md5: b2e40e8e776405b60d9a22285309d508.dir
+      size: 27120312
+      nfiles: 12000
+    - path: models/model.pth
+      hash: md5
+      md5: c8ccc1f72169c4b3bc82195a5ab80a38
+      size: 100968
+    - path: src/evaluate.py
+      hash: md5
+      md5: f099a565a3c019c3735917cc18dce616
+      size: 4912
+    params:
+      params.yaml:
+        data.version: v1+v2+v3
+    outs:
+    - path: metrics/v1+v2+v3_test_accuracy.json
+      hash: md5
+      md5: e303e747bc9b66891f58deba7b937bfe
+      size: 446
+    - path: reports/v1+v2+v3_confusion_matrix.png
+      hash: md5
+      md5: 7ac6e2cd751eb4b00f4466ad48136d8b
+      size: 61871
